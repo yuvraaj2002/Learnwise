@@ -11,7 +11,8 @@ chrome_options.add_argument("--no-sandbox")  # Bypass OS security model (Linux o
 
 
 # Initialize the WebDriver
-driver = webdriver.Chrome(options=chrome_options)
+# driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome()
 
 def scrape_info(driver, query_text,data):
 
@@ -20,13 +21,13 @@ def scrape_info(driver, query_text,data):
 
     # Perform a search
     search_box = driver.find_element(By.NAME, "q")
-    search_box.send_keys(query_text)
+    search_box.send_keys(query_text + " arxiv")
     search_box.submit()
 
     # Scrape results (get the links of the search results)
     links = driver.find_elements(By.XPATH, "//h3[@class='gs_rt']/a")
     for link in links:
-        data[] = link.get_attribute('href')  # Print the URL of each search result
+        data[] = link.get_attribute('href')  
 
     # Close the driver
     driver.quit()
